@@ -1,0 +1,13 @@
+---
+
+BasedOnStyle: 'Google'
+AccessModifierOffset: -2
+AlignConsecutiveAssignments: true
+AlignOperands: true
+AlignTrailingComments: true
+AlwaysBreakTemplateDeclarations: true
+BreakBeforeBraces: 'Attach'
+IndentWidth: 4
+NamespaceIndentation: None
+UseTab: Never
+ColumnLimit: 0
