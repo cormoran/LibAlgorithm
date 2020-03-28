@@ -40,6 +40,7 @@ layout: default
 
 * :warning: <a href="../common/header.hpp.html">common/header.hpp</a>
 * :heavy_check_mark: <a href="../common/simple_header.hpp.html">common/simple_header.hpp</a>
+* :heavy_check_mark: <a href="../data_structure/union_find.hpp.html">data_structure/union_find.hpp</a>
 * :heavy_check_mark: <a href="../graph/bellmanford.hpp.html">graph/bellmanford.hpp</a>
 * :heavy_check_mark: <a href="../graph/bridge_and_articulation.hpp.html">graph/bridge_and_articulation.hpp</a>
 * :heavy_check_mark: <a href="../graph/dijkstra.hpp.html">graph/dijkstra.hpp</a>
@@ -60,6 +61,9 @@ layout: default
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_min_query.test.cpp.html">data_structure/test/segtree_range_min_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_sum_query.test.cpp.html">data_structure/test/segtree_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/union_find.test.cpp.html">data_structure/test/union_find.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/bellmanford.test.cpp.html">graph/test/bellmanford.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/bridge_and_articulation__articulation.test.cpp.html">graph/test/bridge_and_articulation__articulation.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/bridge_and_articulation__bridge.test.cpp.html">graph/test/bridge_and_articulation__bridge.test.cpp</a>

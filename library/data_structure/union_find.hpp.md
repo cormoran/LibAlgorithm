@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: common/simple_header.hpp
+# :heavy_check_mark: data_structure/union_find.hpp
 
 <a href="../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#9efab2399c7c560b34de477b9aa0a465">common</a>
-* <a href="{{ site.github.repository_url }}/blob/master/common/simple_header.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-29 02:07:34+09:00
+* category: <a href="../../index.html#c8f6850ec2ec3fb32f203c1f4e3c2fd2">data_structure</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data_structure/union_find.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-29 02:27:33+09:00
 
 
 
@@ -39,47 +39,12 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../bits/stdc++.hpp.html">bits/stdc++.hpp</a>
-
-
-## Required by
-
-* :heavy_check_mark: <a href="../data_structure/union_find.hpp.html">data_structure/union_find.hpp</a>
-* :heavy_check_mark: <a href="../graph/bellmanford.hpp.html">graph/bellmanford.hpp</a>
-* :heavy_check_mark: <a href="../graph/bridge_and_articulation.hpp.html">graph/bridge_and_articulation.hpp</a>
-* :heavy_check_mark: <a href="../graph/dijkstra.hpp.html">graph/dijkstra.hpp</a>
-* :heavy_check_mark: <a href="../graph/graph_type.hpp.html">graph/graph_type.hpp</a>
-* :heavy_check_mark: <a href="../graph/kruskal.hpp.html">graph/kruskal.hpp</a>
-* :warning: <a href="../graph/lowest_common_ancestor.hpp.html">graph/lowest_common_ancestor.hpp</a>
-* :heavy_check_mark: <a href="../graph/max_flow.hpp.html">graph/max_flow.hpp</a>
-* :heavy_check_mark: <a href="../graph/min_cost_flow.hpp.html">graph/min_cost_flow.hpp</a>
-* :heavy_check_mark: <a href="../graph/prim.hpp.html">graph/prim.hpp</a>
-* :heavy_check_mark: <a href="../graph/strongly_connected_components_ant.hpp.html">graph/strongly_connected_components_ant.hpp</a>
-* :heavy_check_mark: <a href="../graph/strongly_connected_components_detect_cycle_ant.hpp.html">graph/strongly_connected_components_detect_cycle_ant.hpp</a>
-* :heavy_check_mark: <a href="../graph/strongly_connected_components_detect_cycle_tarjan.hpp.html">graph/strongly_connected_components_detect_cycle_tarjan.hpp</a>
-* :heavy_check_mark: <a href="../graph/strongly_connected_components_tarjan.hpp.html">graph/strongly_connected_components_tarjan.hpp</a>
-* :heavy_check_mark: <a href="../graph/tree_diameter.hpp.html">graph/tree_diameter.hpp</a>
-* :warning: <a href="../graph/two_sat.hpp.html">graph/two_sat.hpp</a>
-* :heavy_check_mark: <a href="../graph/warshall_floyd.hpp.html">graph/warshall_floyd.hpp</a>
+* :heavy_check_mark: <a href="../common/simple_header.hpp.html">common/simple_header.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_min_query.test.cpp.html">data_structure/test/segtree_range_min_query.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_sum_query.test.cpp.html">data_structure/test/segtree_range_sum_query.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/data_structure/test/union_find.test.cpp.html">data_structure/test/union_find.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/bellmanford.test.cpp.html">graph/test/bellmanford.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/bridge_and_articulation__articulation.test.cpp.html">graph/test/bridge_and_articulation__articulation.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/bridge_and_articulation__bridge.test.cpp.html">graph/test/bridge_and_articulation__bridge.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/dijkstra.test.cpp.html">graph/test/dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/kruskal.test.cpp.html">graph/test/kruskal.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/max_flow.test.cpp.html">graph/test/max_flow.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/min_cost_flow.test.cpp.html">graph/test/min_cost_flow.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/prim.test.cpp.html">graph/test/prim.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/strongly_connected_components.test.cpp.html">graph/test/strongly_connected_components.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/strongly_connected_components__topological_sort.test.cpp.html">graph/test/strongly_connected_components__topological_sort.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/strongly_connected_components_detect_cycle.test.cpp.html">graph/test/strongly_connected_components_detect_cycle.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/tree__diameter.test.cpp.html">graph/test/tree__diameter.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/graph/test/warshall_floyd.test.cpp.html">graph/test/warshall_floyd.test.cpp</a>
 
 
 ## Code
@@ -88,12 +53,55 @@ layout: default
 {% raw %}
 ```cpp
 #pragma once
+#include "common/simple_header.hpp"
 
-#include "bits/stdc++.hpp"
-using namespace std;
-using ll = long long;
-#define rep(i, j) for (int i = 0; i < (int)(j); i++)
-constexpr int INF = 1 << 28;
+// 0 to n-1 でも1 to nでもOK
+struct UnionFind {
+    int n;
+    vector<int> p;
+    UnionFind(int nn) {
+        n = nn + 1;  // 1-based safe
+        p.resize(n);
+        rep(i, n) p[i] = i;
+    }
+    int root(int x) { return p[x] == x ? x : (p[x] = root(p[x])); }
+    void unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+        if (x != y) p[y] = x;
+    }
+    bool query(int x, int y) { return root(x) == root(y); }
+    map<int, vector<int>> get_group() {
+        map<int, vector<int>> res;
+        rep(i, p.size()) { res[root(i)].push_back(i); }
+        return res;
+    }
+};
+
+//
+struct UnionFindWithSize {
+    int n;
+    vector<int> p;
+    vector<int> size;
+    UnionFindWithSize(int nn) {
+        n = nn + 1;  // 1-based safe
+        p.resize(n);
+        size.resize(n);
+        rep(i, n) p[i]    = i;
+        rep(i, n) size[i] = 1;
+    }
+    int root(int x) { return p[x] == x ? x : (p[x] = root(p[x])); }
+    void unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+        if (x != y) {
+            p[y] = x;
+            size[x] += size[y];
+        }
+    }
+    bool query(int x, int y) { return root(x) == root(y); }
+    int query_size(int x) { return size[root(x)]; }
+};
 
 ```
 {% endraw %}
@@ -222,6 +230,55 @@ using namespace std;
 using ll = long long;
 #define rep(i, j) for (int i = 0; i < (int)(j); i++)
 constexpr int INF = 1 << 28;
+#line 3 "data_structure/union_find.hpp"
+
+// 0 to n-1 でも1 to nでもOK
+struct UnionFind {
+    int n;
+    vector<int> p;
+    UnionFind(int nn) {
+        n = nn + 1;  // 1-based safe
+        p.resize(n);
+        rep(i, n) p[i] = i;
+    }
+    int root(int x) { return p[x] == x ? x : (p[x] = root(p[x])); }
+    void unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+        if (x != y) p[y] = x;
+    }
+    bool query(int x, int y) { return root(x) == root(y); }
+    map<int, vector<int>> get_group() {
+        map<int, vector<int>> res;
+        rep(i, p.size()) { res[root(i)].push_back(i); }
+        return res;
+    }
+};
+
+//
+struct UnionFindWithSize {
+    int n;
+    vector<int> p;
+    vector<int> size;
+    UnionFindWithSize(int nn) {
+        n = nn + 1;  // 1-based safe
+        p.resize(n);
+        size.resize(n);
+        rep(i, n) p[i]    = i;
+        rep(i, n) size[i] = 1;
+    }
+    int root(int x) { return p[x] == x ? x : (p[x] = root(p[x])); }
+    void unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+        if (x != y) {
+            p[y] = x;
+            size[x] += size[y];
+        }
+    }
+    bool query(int x, int y) { return root(x) == root(y); }
+    int query_size(int x) { return size[root(x)]; }
+};
 
 ```
 {% endraw %}
