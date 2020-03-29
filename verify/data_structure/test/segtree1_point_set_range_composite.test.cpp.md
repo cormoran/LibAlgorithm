@@ -25,16 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data_structure/test/segtree1_range_sum_query2.test.cpp
+# :heavy_check_mark: data_structure/test/segtree1_point_set_range_composite.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#2f0dc85cbb0980b745ae32d3fa8bfd47">data_structure/test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/segtree1_range_sum_query2.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/segtree1_point_set_range_composite.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-29 21:47:56+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B</a>
+* see: <a href="https://judge.yosupo.jp/problem/point_set_range_composite">https://judge.yosupo.jp/problem/point_set_range_composite</a>
 
 
 ## Depends on
@@ -50,24 +50,38 @@ layout: default
 {% raw %}
 ```cpp
 
-
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 
 #include "../segtree1.hpp"
 #include "common/simple_header.hpp"
+using pll    = pair<ll, ll>;
+const ll MOD = 998244353;
+
+struct Func {
+    using T = pll;
+    T query_merge(const T& l, const T& r) const {
+        return pll((l.first * r.first) % MOD, ((r.first * l.second) % MOD + r.second) % MOD);
+    }
+    T update(const T& data, const T& new_data) const { return new_data; }
+    static constexpr T query_unit() { return pll(1, 0); }
+};
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    RangeSumQuery<ll, 0ll> rsq(N, 0);
+    vector<pll> init(N);
+    rep(i, N) cin >> init[i].first >> init[i].second;
+    SegmentTree<Func> seg(init);
 
     while (Q--) {
-        int t, a, b;
-        cin >> t >> a >> b;
-        if (t == 0)
-            rsq.update(a - 1, b);
-        else
-            cout << rsq.query(a - 1, b) << endl;
+        ll t, a, b, c;
+        cin >> t >> a >> b >> c;
+        if (t == 0) {
+            seg.update(a, pll(b, c));
+        } else {
+            auto p = seg.query(a, b);
+            cout << ((p.first * c) % MOD + p.second) % MOD << endl;
+        }
     }
     return 0;
 }
@@ -77,10 +91,9 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "data_structure/test/segtree1_range_sum_query2.test.cpp"
+#line 1 "data_structure/test/segtree1_point_set_range_composite.test.cpp"
 
-
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_set_range_composite"
 
 #line 2 "data_structure/segtree1.hpp"
 #include <vector>
@@ -312,20 +325,35 @@ using namespace std;
 using ll = long long;
 #define rep(i, j) for (int i = 0; i < (int)(j); i++)
 constexpr int INF = 1 << 28;
-#line 7 "data_structure/test/segtree1_range_sum_query2.test.cpp"
+#line 6 "data_structure/test/segtree1_point_set_range_composite.test.cpp"
+using pll    = pair<ll, ll>;
+const ll MOD = 998244353;
+
+struct Func {
+    using T = pll;
+    T query_merge(const T& l, const T& r) const {
+        return pll((l.first * r.first) % MOD, ((r.first * l.second) % MOD + r.second) % MOD);
+    }
+    T update(const T& data, const T& new_data) const { return new_data; }
+    static constexpr T query_unit() { return pll(1, 0); }
+};
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    RangeSumQuery<ll, 0ll> rsq(N, 0);
+    vector<pll> init(N);
+    rep(i, N) cin >> init[i].first >> init[i].second;
+    SegmentTree<Func> seg(init);
 
     while (Q--) {
-        int t, a, b;
-        cin >> t >> a >> b;
-        if (t == 0)
-            rsq.update(a - 1, b);
-        else
-            cout << rsq.query(a - 1, b) << endl;
+        ll t, a, b, c;
+        cin >> t >> a >> b >> c;
+        if (t == 0) {
+            seg.update(a, pll(b, c));
+        } else {
+            auto p = seg.query(a, b);
+            cout << ((p.first * c) % MOD + p.second) % MOD << endl;
+        }
     }
     return 0;
 }
