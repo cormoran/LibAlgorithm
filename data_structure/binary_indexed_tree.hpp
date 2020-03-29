@@ -1,39 +1,41 @@
 #pragma once
-// verified!
+#include <cassert>
+#include <vector>
 
+#include "common/simple_header.hpp"
 // 1-based index!
-template<typename T>
-struct BIT {
+template <typename T>
+struct BinaryIndexedTree {
     vector<T> data;
-    BIT(size_t n) {
+    int n;
+    BinaryIndexedTree(size_t n) : n(n) {
         data.resize(n + 1, 0);
     }
-    //sum of [1, i]
-    T sum(int i){
-        assert(0 <= i);
+    BinaryIndexedTree(const vector<T> &A) {
+        n = A.size();
+        data.resize(n + 1, 0);
+        for (int i = 0; i < n; i++) update(i, A[i]);
+    }
+    // array[k] += val
+    void update(int i, T val) {
+        assert(0 <= i and i < n);
+        for (; i < n + 1; i |= i + 1) data[i] += val;
+    }
+    // sum [0...i)
+    T query(int i) const {
+        assert(0 <= i and i <= n);
         T s = 0;
-        for(; i > 0; i -= i & -i) s += data[i];
+        for (--i; i >= 0; i = (i & (i + 1)) - 1) s += data[i];
         return s;
     }
-    // sum of [i, j]
-    T sum(int i,int j){
-        assert(0 < i and i <= j);
-        return sum(j) - sum(i - 1);
-    }
-    //add x to index i
-    void add(int i, T x){
-        assert(0 < i);
-        for(; i < data.size(); i += i & -i) data[i] += x;
-    }
-    // seach min i such that sum(i) >= x
-    int lower_bound(T x){
-        int r = data.size() - 1, l = 0; // (l, r]
-        while(r - l > 1){
-            int m = (r + l) / 2;
-            (sum(m) >= x ? r : l) = m;
-        }
-        return r;
+    // sum [i, j)
+    T query(int i, int j) const {
+        assert(0 <= i and i < j and j <= n);
+        return query(j) - query(i);
     }
 };
-template<class T> using BinaryIndexedTree = BIT<T>;
-template<class T> using FenwickTree = BIT<T>;
+
+template <class T>
+using FenwickTree = BinaryIndexedTree<T>;
+template <class T>
+using RangeSumQuery = BinaryIndexedTree<T>;
