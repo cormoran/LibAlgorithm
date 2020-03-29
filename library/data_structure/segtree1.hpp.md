@@ -38,8 +38,10 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_min_query.test.cpp.html">data_structure/test/segtree_range_min_query.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_sum_query.test.cpp.html">data_structure/test/segtree_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_min_query.test.cpp.html">data_structure/test/segtree1_range_min_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_min_query2.test.cpp.html">data_structure/test/segtree1_range_min_query2.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_sum_query.test.cpp.html">data_structure/test/segtree1_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_sum_query2.test.cpp.html">data_structure/test/segtree1_range_sum_query2.test.cpp</a>
 
 
 ## Code

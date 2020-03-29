@@ -21,30 +21,27 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data_structure/binary_indexed_tree.hpp
+# :heavy_check_mark: data_structure/test/union_find2.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#c8f6850ec2ec3fb32f203c1f4e3c2fd2">data_structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data_structure/binary_indexed_tree.hpp">View this file on GitHub</a>
+* category: <a href="../../../index.html#2f0dc85cbb0980b745ae32d3fa8bfd47">data_structure/test</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/union_find2.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-29 21:00:00+09:00
 
 
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../bits/stdc++.hpp.html">bits/stdc++.hpp</a>
-* :heavy_check_mark: <a href="../common/simple_header.hpp.html">common/simple_header.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/data_structure/test/binary_indexed_tree_range_sum_query.test.cpp.html">data_structure/test/binary_indexed_tree_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../../library/bits/stdc++.hpp.html">bits/stdc++.hpp</a>
+* :heavy_check_mark: <a href="../../../library/common/simple_header.hpp.html">common/simple_header.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data_structure/union_find.hpp.html">data_structure/union_find.hpp</a>
 
 
 ## Code
@@ -52,56 +49,32 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
-#include <cassert>
-#include <vector>
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A"
 
-#include "common/simple_header.hpp"
-// 1-based index!
-template <typename T>
-struct BinaryIndexedTree {
-    vector<T> data;
-    int n;
-    BinaryIndexedTree(size_t n) : n(n) {
-        data.resize(n + 1, 0);
-    }
-    BinaryIndexedTree(const vector<T> &A) {
-        n = A.size();
-        data.resize(n + 1, 0);
-        for (int i = 0; i < n; i++) update(i, A[i]);
-    }
-    // array[k] += val
-    void update(int i, T val) {
-        assert(0 <= i and i < n);
-        for (; i < n + 1; i |= i + 1) data[i] += val;
-    }
-    // sum [0...i)
-    T query(int i) const {
-        assert(0 <= i and i <= n);
-        T s = 0;
-        for (--i; i >= 0; i = (i & (i + 1)) - 1) s += data[i];
-        return s;
-    }
-    // sum [i, j)
-    T query(int i, int j) const {
-        assert(0 <= i and i < j and j <= n);
-        return query(j) - query(i);
-    }
-};
+#include "../union_find.hpp"
 
-template <class T>
-using FenwickTree = BinaryIndexedTree<T>;
-template <class T>
-using RangeSumQuery = BinaryIndexedTree<T>;
+int main() {
+    int N, Q;
+    cin >> N >> Q;
+    UnionFind uf(N);
+    while (Q--) {
+        int t, u, v;
+        cin >> t >> u >> v;
+        if (t == 0)
+            uf.unite(u, v);
+        else
+            cout << (uf.query(u, v) ? 1 : 0) << endl;
+    }
+    return 0;
+}
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "data_structure/binary_indexed_tree.hpp"
-#include <cassert>
-#include <vector>
+#line 1 "data_structure/test/union_find2.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A"
 
 #line 2 "common/simple_header.hpp"
 
@@ -137,7 +110,7 @@ using RangeSumQuery = BinaryIndexedTree<T>;
 // 17.4.1.2 Headers
 
 // C
-#line 33 "bits/stdc++.hpp"
+#include <cassert>
 // #include <cctype>
 // #include <cerrno>
 // #include <cfloat>
@@ -197,7 +170,7 @@ using RangeSumQuery = BinaryIndexedTree<T>;
 #include <typeinfo>
 #include <utility>
 #include <valarray>
-#line 93 "bits/stdc++.hpp"
+#include <vector>
 
 #include <array>
 #include <atomic>
@@ -224,46 +197,74 @@ using namespace std;
 using ll = long long;
 #define rep(i, j) for (int i = 0; i < (int)(j); i++)
 constexpr int INF = 1 << 28;
-#line 6 "data_structure/binary_indexed_tree.hpp"
-// 1-based index!
-template <typename T>
-struct BinaryIndexedTree {
-    vector<T> data;
+#line 3 "data_structure/union_find.hpp"
+
+// 0 to n-1 でも1 to nでもOK
+struct UnionFind {
     int n;
-    BinaryIndexedTree(size_t n) : n(n) {
-        data.resize(n + 1, 0);
+    vector<int> p;
+    UnionFind(int nn) {
+        n = nn + 1;  // 1-based safe
+        p.resize(n);
+        rep(i, n) p[i] = i;
     }
-    BinaryIndexedTree(const vector<T> &A) {
-        n = A.size();
-        data.resize(n + 1, 0);
-        for (int i = 0; i < n; i++) update(i, A[i]);
+    int root(int x) { return p[x] == x ? x : (p[x] = root(p[x])); }
+    void unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+        if (x != y) p[y] = x;
     }
-    // array[k] += val
-    void update(int i, T val) {
-        assert(0 <= i and i < n);
-        for (; i < n + 1; i |= i + 1) data[i] += val;
-    }
-    // sum [0...i)
-    T query(int i) const {
-        assert(0 <= i and i <= n);
-        T s = 0;
-        for (--i; i >= 0; i = (i & (i + 1)) - 1) s += data[i];
-        return s;
-    }
-    // sum [i, j)
-    T query(int i, int j) const {
-        assert(0 <= i and i < j and j <= n);
-        return query(j) - query(i);
+    bool query(int x, int y) { return root(x) == root(y); }
+    map<int, vector<int>> get_group() {
+        map<int, vector<int>> res;
+        rep(i, p.size()) { res[root(i)].push_back(i); }
+        return res;
     }
 };
 
-template <class T>
-using FenwickTree = BinaryIndexedTree<T>;
-template <class T>
-using RangeSumQuery = BinaryIndexedTree<T>;
+//
+struct UnionFindWithSize {
+    int n;
+    vector<int> p;
+    vector<int> size;
+    UnionFindWithSize(int nn) {
+        n = nn + 1;  // 1-based safe
+        p.resize(n);
+        size.resize(n);
+        rep(i, n) p[i]    = i;
+        rep(i, n) size[i] = 1;
+    }
+    int root(int x) { return p[x] == x ? x : (p[x] = root(p[x])); }
+    void unite(int x, int y) {
+        x = root(x);
+        y = root(y);
+        if (x != y) {
+            p[y] = x;
+            size[x] += size[y];
+        }
+    }
+    bool query(int x, int y) { return root(x) == root(y); }
+    int query_size(int x) { return size[root(x)]; }
+};
+#line 4 "data_structure/test/union_find2.test.cpp"
+
+int main() {
+    int N, Q;
+    cin >> N >> Q;
+    UnionFind uf(N);
+    while (Q--) {
+        int t, u, v;
+        cin >> t >> u >> v;
+        if (t == 0)
+            uf.unite(u, v);
+        else
+            cout << (uf.query(u, v) ? 1 : 0) << endl;
+    }
+    return 0;
+}
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

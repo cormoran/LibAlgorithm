@@ -21,30 +21,27 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data_structure/binary_indexed_tree.hpp
+# :heavy_check_mark: data_structure/test/binary_indexed_tree_range_sum_query.test.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#c8f6850ec2ec3fb32f203c1f4e3c2fd2">data_structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data_structure/binary_indexed_tree.hpp">View this file on GitHub</a>
+* category: <a href="../../../index.html#2f0dc85cbb0980b745ae32d3fa8bfd47">data_structure/test</a>
+* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/binary_indexed_tree_range_sum_query.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-29 21:00:00+09:00
 
 
+* see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../bits/stdc++.hpp.html">bits/stdc++.hpp</a>
-* :heavy_check_mark: <a href="../common/simple_header.hpp.html">common/simple_header.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../verify/data_structure/test/binary_indexed_tree_range_sum_query.test.cpp.html">data_structure/test/binary_indexed_tree_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../../library/bits/stdc++.hpp.html">bits/stdc++.hpp</a>
+* :heavy_check_mark: <a href="../../../library/common/simple_header.hpp.html">common/simple_header.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data_structure/binary_indexed_tree.hpp.html">data_structure/binary_indexed_tree.hpp</a>
 
 
 ## Code
@@ -52,53 +49,38 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
-#include <cassert>
-#include <vector>
 
-#include "common/simple_header.hpp"
-// 1-based index!
-template <typename T>
-struct BinaryIndexedTree {
-    vector<T> data;
-    int n;
-    BinaryIndexedTree(size_t n) : n(n) {
-        data.resize(n + 1, 0);
-    }
-    BinaryIndexedTree(const vector<T> &A) {
-        n = A.size();
-        data.resize(n + 1, 0);
-        for (int i = 0; i < n; i++) update(i, A[i]);
-    }
-    // array[k] += val
-    void update(int i, T val) {
-        assert(0 <= i and i < n);
-        for (; i < n + 1; i |= i + 1) data[i] += val;
-    }
-    // sum [0...i)
-    T query(int i) const {
-        assert(0 <= i and i <= n);
-        T s = 0;
-        for (--i; i >= 0; i = (i & (i + 1)) - 1) s += data[i];
-        return s;
-    }
-    // sum [i, j)
-    T query(int i, int j) const {
-        assert(0 <= i and i < j and j <= n);
-        return query(j) - query(i);
-    }
-};
 
-template <class T>
-using FenwickTree = BinaryIndexedTree<T>;
-template <class T>
-using RangeSumQuery = BinaryIndexedTree<T>;
+#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#include "../binary_indexed_tree.hpp"
+
+int main() {
+    int N, Q;
+    cin >> N >> Q;
+    vector<ll> A(N);
+    for (auto &a : A) cin >> a;
+    BinaryIndexedTree<ll> rsq(A);
+
+    while (Q--) {
+        int t, a, b;
+        cin >> t >> a >> b;
+        if (t == 0)
+            rsq.update(a, b);
+        else
+            cout << rsq.query(a, b) << endl;
+    }
+    return 0;
+}
 ```
 {% endraw %}
 
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "data_structure/test/binary_indexed_tree_range_sum_query.test.cpp"
+
+
+#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 #line 2 "data_structure/binary_indexed_tree.hpp"
 #include <cassert>
 #include <vector>
@@ -261,9 +243,28 @@ template <class T>
 using FenwickTree = BinaryIndexedTree<T>;
 template <class T>
 using RangeSumQuery = BinaryIndexedTree<T>;
+#line 5 "data_structure/test/binary_indexed_tree_range_sum_query.test.cpp"
+
+int main() {
+    int N, Q;
+    cin >> N >> Q;
+    vector<ll> A(N);
+    for (auto &a : A) cin >> a;
+    BinaryIndexedTree<ll> rsq(A);
+
+    while (Q--) {
+        int t, a, b;
+        cin >> t >> a >> b;
+        if (t == 0)
+            rsq.update(a, b);
+        else
+            cout << rsq.query(a, b) << endl;
+    }
+    return 0;
+}
 
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

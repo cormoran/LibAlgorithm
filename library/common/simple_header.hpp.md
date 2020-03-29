@@ -43,6 +43,8 @@ layout: default
 
 ## Required by
 
+* :heavy_check_mark: <a href="../data_structure/binary_indexed_tree.hpp.html">data_structure/binary_indexed_tree.hpp</a>
+* :heavy_check_mark: <a href="../data_structure/segtree3.hpp.html">data_structure/segtree3.hpp</a>
 * :heavy_check_mark: <a href="../data_structure/union_find.hpp.html">data_structure/union_find.hpp</a>
 * :heavy_check_mark: <a href="../graph/bellmanford.hpp.html">graph/bellmanford.hpp</a>
 * :heavy_check_mark: <a href="../graph/bridge_and_articulation.hpp.html">graph/bridge_and_articulation.hpp</a>
@@ -64,9 +66,19 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_min_query.test.cpp.html">data_structure/test/segtree_range_min_query.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree_range_sum_query.test.cpp.html">data_structure/test/segtree_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/binary_indexed_tree_range_sum_query.test.cpp.html">data_structure/test/binary_indexed_tree_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_min_query.test.cpp.html">data_structure/test/segtree1_range_min_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_min_query2.test.cpp.html">data_structure/test/segtree1_range_min_query2.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_sum_query.test.cpp.html">data_structure/test/segtree1_range_sum_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree1_range_sum_query2.test.cpp.html">data_structure/test/segtree1_range_sum_query2.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree2_range_add_query.test.cpp.html">data_structure/test/segtree2_range_add_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree2_range_update_query.test.cpp.html">data_structure/test/segtree2_range_update_query.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree3_rmq_raq.test.cpp.html">data_structure/test/segtree3_rmq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree3_rmq_ruq.test.cpp.html">data_structure/test/segtree3_rmq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree3_rsq_raq.test.cpp.html">data_structure/test/segtree3_rsq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/segtree3_rsq_ruq.test.cpp.html">data_structure/test/segtree3_rsq_ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/data_structure/test/union_find.test.cpp.html">data_structure/test/union_find.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/union_find2.test.cpp.html">data_structure/test/union_find2.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/bellmanford.test.cpp.html">graph/test/bellmanford.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/bridge_and_articulation__articulation.test.cpp.html">graph/test/bridge_and_articulation__articulation.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/bridge_and_articulation__bridge.test.cpp.html">graph/test/bridge_and_articulation__bridge.test.cpp</a>

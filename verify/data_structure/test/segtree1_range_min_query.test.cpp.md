@@ -25,16 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data_structure/test/segtree_range_sum_query.test.cpp
+# :heavy_check_mark: data_structure/test/segtree1_range_min_query.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#2f0dc85cbb0980b745ae32d3fa8bfd47">data_structure/test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/segtree_range_sum_query.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-29 02:27:33+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/segtree1_range_min_query.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-29 21:00:00+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
+* see: <a href="https://judge.yosupo.jp/problem/staticrmq">https://judge.yosupo.jp/problem/staticrmq</a>
 
 
 ## Depends on
@@ -49,9 +49,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-
-
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 
 #include "../segtree1.hpp"
 #include "common/simple_header.hpp"
@@ -61,15 +59,11 @@ int main() {
     cin >> N >> Q;
     vector<ll> A(N);
     for (auto &a : A) cin >> a;
-    RangeSumQuery<ll, 0ll> rsq(A);
-
+    RangeMinimumQuery<ll, 10000000000ll> rmq(A);
     while (Q--) {
-        int t, a, b;
-        cin >> t >> a >> b;
-        if (t == 0)
-            rsq.update(a, b);
-        else
-            cout << rsq.query(a, b) << endl;
+        int l, r;
+        cin >> l >> r;
+        cout << rmq.query(l, r) << endl;
     }
     return 0;
 }
@@ -79,10 +73,8 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "data_structure/test/segtree_range_sum_query.test.cpp"
-
-
-#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+#line 1 "data_structure/test/segtree1_range_min_query.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 
 #line 2 "data_structure/segtree1.hpp"
 #include <vector>
@@ -306,22 +298,18 @@ using namespace std;
 using ll = long long;
 #define rep(i, j) for (int i = 0; i < (int)(j); i++)
 constexpr int INF = 1 << 28;
-#line 7 "data_structure/test/segtree_range_sum_query.test.cpp"
+#line 5 "data_structure/test/segtree1_range_min_query.test.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
     vector<ll> A(N);
     for (auto &a : A) cin >> a;
-    RangeSumQuery<ll, 0ll> rsq(A);
-
+    RangeMinimumQuery<ll, 10000000000ll> rmq(A);
     while (Q--) {
-        int t, a, b;
-        cin >> t >> a >> b;
-        if (t == 0)
-            rsq.update(a, b);
-        else
-            cout << rsq.query(a, b) << endl;
+        int l, r;
+        cin >> l >> r;
+        cout << rmq.query(l, r) << endl;
     }
     return 0;
 }

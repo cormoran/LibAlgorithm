@@ -45,6 +45,7 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../verify/data_structure/test/union_find.test.cpp.html">data_structure/test/union_find.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/data_structure/test/union_find2.test.cpp.html">data_structure/test/union_find2.test.cpp</a>
 
 
 ## Code

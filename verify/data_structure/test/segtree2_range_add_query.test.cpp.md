@@ -25,23 +25,23 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: data_structure/test/segtree_range_min_query.test.cpp
+# :heavy_check_mark: data_structure/test/segtree2_range_add_query.test.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#2f0dc85cbb0980b745ae32d3fa8bfd47">data_structure/test</a>
-* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/segtree_range_min_query.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-29 02:27:33+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/data_structure/test/segtree2_range_add_query.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-29 21:00:00+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/staticrmq">https://judge.yosupo.jp/problem/staticrmq</a>
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E</a>
 
 
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../library/bits/stdc++.hpp.html">bits/stdc++.hpp</a>
 * :heavy_check_mark: <a href="../../../library/common/simple_header.hpp.html">common/simple_header.hpp</a>
-* :heavy_check_mark: <a href="../../../library/data_structure/segtree1.hpp.html">data_structure/segtree1.hpp</a>
+* :heavy_check_mark: <a href="../../../library/data_structure/segtree2.hpp.html">data_structure/segtree2.hpp</a>
 
 
 ## Code
@@ -49,21 +49,31 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
 
-#include "../segtree1.hpp"
+
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E"
+
+#include "../segtree2.hpp"
 #include "common/simple_header.hpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    vector<ll> A(N);
-    for (auto &a : A) cin >> a;
-    RangeMinimumQuery<ll, 10000000000ll> rmq(A);
+    RangeAddQuery<ll, 0ll> ruq(N);
+
     while (Q--) {
-        int l, r;
-        cin >> l >> r;
-        cout << rmq.query(l, r) << endl;
+        int t;
+        cin >> t;
+        if (t == 0) {
+            int s, t;
+            ll x;
+            cin >> s >> t >> x;
+            ruq.update(s - 1, t, x);
+        } else {
+            int i;
+            cin >> i;
+            cout << ruq.query(i - 1) << endl;
+        }
     }
     return 0;
 }
@@ -73,75 +83,75 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "data_structure/test/segtree_range_min_query.test.cpp"
-#define PROBLEM "https://judge.yosupo.jp/problem/staticrmq"
+#line 1 "data_structure/test/segtree2_range_add_query.test.cpp"
 
-#line 2 "data_structure/segtree1.hpp"
+
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E"
+
+#line 2 "data_structure/segtree2.hpp"
+
+#include <cassert>
 #include <vector>
 using namespace std;
 
-#include <algorithm>
-#include <cassert>
 #include <functional>
 /*^ingore^*/
 
 // T           : データ型
-// QueryFunc   : 演算子
-// UpdateFunc  : (以前の値, 適用する値) => 新しい値
-// query_unit  : QueryFuncの単位元
-template <class T, class QueryFunc, class UpdateFunc, T query_unit>
+// UpdateFunc  : (以前の値, 適用する値) => 新しい値 結合性必要
+// update_unit : UpdateFuncの単位元 (= 配列の初期値)
+template <class T, class UpdateFunc, T update_unit>
 class SegmentTree {
   public:
+    int depth;
     int n;
     vector<T> data;
-    QueryFunc qf;
     UpdateFunc uf;
-    SegmentTree(int nn, T init) : n(1) {
-        while (n < nn) n *= 2;
-        data.resize(2 * n - 1, query_unit);
-        fill(begin(data) + n - 1, end(data), init);
-        for (int i = n - 2; i >= 0; i--) {
-            data[i] = qf(data[left_child(i)], data[right_child(i)]);
-        }
+    SegmentTree(int n_) : depth(0) {
+        while ((1 << depth) < n_) depth++;
+        n = 1 << depth;  // 2^depth
+        data.resize((1 << (depth + 1)) - 1, update_unit);
     }
-    SegmentTree(vector<T> init) : n(1) {
-        int nn = init.size();
-        while (n < nn) n *= 2;
-        data.resize(2 * n - 1, query_unit);
-        copy(begin(init), end(init), begin(data) + n - 1);
-        for (int i = n - 2; i >= 0; i--) {
-            data[i] = qf(data[left_child(i)], data[right_child(i)]);
-        }
+    SegmentTree(vector<T> init) : depth(0) {
+        while ((1 << depth) < init.size()) depth++;
+        n = 1 << depth;  // 2^depth
+        data.resize((1 << (depth + 1)) - 1, update_unit);
+        copy(begin(init), end(init), begin(data) + leaf(0));
     }
-    //index k in [0, n) の値を val に更新
-    void update(int k, T val) {
-        assert(0 <= k and k < n);
-        k += n - 1;
-        data[k] = uf(data[k], val);
-        while (k > 0) {
-            k       = parent(k);
-            data[k] = qf(data[left_child(k)], data[right_child(k)]);
-        }
+    // get value of index(i)
+    T query(int i) {
+        assert(0 <= i and i < n);
+        i     = leaf(i);
+        T res = data[i];
+        if (i == 0) return res;
+        do {
+            i   = parent(i);
+            res = uf(res, data[i]);
+        } while (i > 0);
+        return res;
     }
-    T query(int a) const {
-        return query(a, a + 1);
-    }
-    // [a, b)
-    T query(int a, int b) const {
+    // apply f(_, v) to [a, b)
+    void update(int a, int b, T v) {
         assert(0 <= a and a < b and b <= n);
-        return query(a, b, 0, 0, n);
+        update(a, b, 0, 0, n, v);
     }
 
   private:
-    //[a, b) のクエリ, nowは今の場所, [l,r)は見ている場所
-    T query(int a, int b, int now, int l, int r) const {
-        if (out_of_range(a, b, l, r)) return query_unit;
+    // [a, b) 更新区間, i 今いるNode, [l, r) はNode[i]の担当区間
+    void update(int a, int b, int i, int l, int r, T v) {
+        if (out_of_range(a, b, l, r)) return;
         if (within_range(a, b, l, r))
-            return data[now];
-        else {  // cross range
-            T vleft  = query(a, b, left_child(now), l, (l + r) / 2);
-            T vright = query(a, b, right_child(now), (l + r) / 2, r);
-            return qf(vleft, vright);
+            data[i] = uf(data[i], v);
+        else {
+            // 遅延伝搬させる
+            int m = (l + r) / 2;
+            if (data[i] != update_unit) {
+                update(l, r, left_child(i), l, m, data[i]);
+                update(l, r, right_child(i), m, r, data[i]);
+                data[i] = update_unit;
+            }
+            update(a, b, left_child(i), l, m, v);
+            update(a, b, right_child(i), m, r, v);
         }
     }
     static bool out_of_range(int a, int b, int l, int r) { return r <= a or b <= l; }
@@ -149,34 +159,19 @@ class SegmentTree {
     static int left_child(int i) { return i * 2 + 1; }
     static int right_child(int i) { return i * 2 + 2; }
     static int parent(int i) { return (i - 1) / 2; }
+    int leaf(int i) { return i + (1 << depth) - 1; }
 };
 
-// -----------------------------------------------------------------------
-
-template <class T>
-struct Min {
-    T operator()(const T& x, const T& y) const { return min(x, y); }
-};
-template <class T>
-struct Max {
-    T operator()(const T& x, const T& y) const { return max(x, y); }
-};
-template <class T>
+template <class T, T INIT>
 struct OverWrite {
-    T operator()(const T& x, const T& y) const { return y; }
+    T operator()(const T& x, const T& y) const { return y == INIT ? x : y; }
 };
 
-template <class T, T INF>
-using RangeMinimumQuery = SegmentTree<T, Min<T>, OverWrite<T>, INF>;
+template <class T, T INIT>
+using RangeUpdateQuery = SegmentTree<T, OverWrite<T, INIT>, INIT>;
 
-template <class T, T MINF>
-using RangeMaximumQuery = SegmentTree<T, Max<T>, OverWrite<T>, MINF>;
-
-template <class T, T ZERO>
-using RangeSumQuery = SegmentTree<T, plus<T>, plus<T>, ZERO>;  // update を add とした実装
-
-// template<class T, T ZERO>
-// using RangeSumQuery = SegmentTree<T, plus<T>, OverWrite<T>, ZERO, ZERO>; // update は overwrite
+template <class T, T INIT>
+using RangeAddQuery = SegmentTree<T, plus<T>, INIT>;
 #line 2 "common/simple_header.hpp"
 
 #line 1 "bits/stdc++.hpp"
@@ -240,7 +235,7 @@ using RangeSumQuery = SegmentTree<T, plus<T>, plus<T>, ZERO>;  // update を add
 // #include <cwctype>
 
 // C++
-#line 62 "bits/stdc++.hpp"
+#include <algorithm>
 #include <bitset>
 #include <complex>
 #include <deque>
@@ -298,18 +293,26 @@ using namespace std;
 using ll = long long;
 #define rep(i, j) for (int i = 0; i < (int)(j); i++)
 constexpr int INF = 1 << 28;
-#line 5 "data_structure/test/segtree_range_min_query.test.cpp"
+#line 7 "data_structure/test/segtree2_range_add_query.test.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    vector<ll> A(N);
-    for (auto &a : A) cin >> a;
-    RangeMinimumQuery<ll, 10000000000ll> rmq(A);
+    RangeAddQuery<ll, 0ll> ruq(N);
+
     while (Q--) {
-        int l, r;
-        cin >> l >> r;
-        cout << rmq.query(l, r) << endl;
+        int t;
+        cin >> t;
+        if (t == 0) {
+            int s, t;
+            ll x;
+            cin >> s >> t >> x;
+            ruq.update(s - 1, t, x);
+        } else {
+            int i;
+            cin >> i;
+            cout << ruq.query(i - 1) << endl;
+        }
     }
     return 0;
 }
