@@ -1,4 +1,7 @@
 {
+"data_structure/test/segtree_range_min_query.test.cpp": "2020-03-29 02:27:33 +0900",
+"data_structure/test/segtree_range_sum_query.test.cpp": "2020-03-29 02:27:33 +0900",
+"data_structure/test/union_find.test.cpp": "2020-03-29 02:27:33 +0900",
 "graph/test/bellmanford.test.cpp": "2020-03-29 02:07:34 +0900",
 "graph/test/bridge_and_articulation__articulation.test.cpp": "2020-03-29 02:07:34 +0900",
 "graph/test/bridge_and_articulation__bridge.test.cpp": "2020-03-29 02:07:34 +0900",
