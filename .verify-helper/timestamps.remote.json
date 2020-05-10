@@ -25,5 +25,7 @@
 "graph/test/strongly_connected_components__topological_sort.test.cpp": "2020-03-29 02:07:34 +0900",
 "graph/test/strongly_connected_components_detect_cycle.test.cpp": "2020-03-29 02:07:34 +0900",
 "graph/test/tree__diameter.test.cpp": "2020-03-29 02:07:34 +0900",
-"graph/test/warshall_floyd.test.cpp": "2020-03-29 02:07:34 +0900"
+"graph/test/warshall_floyd.test.cpp": "2020-03-29 02:07:34 +0900",
+"math/test/extgcd.test.cpp": "2020-05-11 01:00:03 +0900",
+"math/test/modpow.test.cpp": "2020-05-11 01:00:03 +0900"
 }
