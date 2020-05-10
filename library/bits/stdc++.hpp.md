@@ -90,6 +90,8 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/graph/test/strongly_connected_components_detect_cycle.test.cpp.html">graph/test/strongly_connected_components_detect_cycle.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/tree__diameter.test.cpp.html">graph/test/tree__diameter.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/graph/test/warshall_floyd.test.cpp.html">graph/test/warshall_floyd.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/math/test/extgcd.test.cpp.html">math/test/extgcd.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/math/test/modpow.test.cpp.html">math/test/modpow.test.cpp</a>
 
 
 ## Code
